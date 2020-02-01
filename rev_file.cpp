@@ -8,15 +8,13 @@ void freadnames(ifstream &, char * []);
 void fwritenames_reverse(ofstream &,char * []);
 void freenames(char * []);
 
-
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
 	char *list[100];
-    
-    if(argc != 3){
-    	cerr << "Number of argument is not correct!" << endl;
-    	return 1;
-    }
+
+	if(argc != 3){
+		cerr << "Number of argument is not correct!" << endl;
+		return 1;
+	}
 
 	ifstream fin(argv[1]);
 	if(fin.fail()){
@@ -33,45 +31,45 @@ int main(int argc, char *argv[])
 	freadnames(fin,list);
 	fwritenames_reverse(fout,list);
 	freenames(list);
-	
+
 	fin.close();
 	fout.close();
-	
-	return 0; 
+
+	cout << "finsihed" << endl;
+	return 0;
 }
 
-void freadnames(ifstream &f,char *list [])
-{
+void freadnames(ifstream &f,char *list []){
 	char x[200];
 
 	int i = 0;
 
-	// write a while loop to reads string form the file and put it in x till the end file
-		// inside the loop allocate the dynamic array for list[i]
-		// copy string in x to list[i] array
-		// increment i 
+	// write a while loop to reads string form the file and put it in x till the end filed file
+	// inside the loop allocate the dynamic array for list[i]
+	// copy string in x to list[i] array
+	// increment i
 
-	list[i] = nullptr;  // We put the null to the last pointer to mark that the last element in list
+	while (f >> x){
+		list[i] = new char[strlen(x)+1];
+		strcpy(list[i],x);
+		i++;
+	}
+
+	list[i] = nullptr; // We put the null to the last pointer to mark that the last element in listlast element in list
 }
-void fwritenames_reverse(ofstream &f,char *list [])
-{
-	int i;
-	for(i = 0; list[i] != nullptr ; ++i)
-		;
 
-	for(int j = i-1; j >= 0 ; --j)
-	{
-		// your code is here
+void fwritenames_reverse(ofstream &f,char *list []){
+	int i;
+	for(i = 0; list[i] != nullptr ; ++i);
+
+	for(int j  = i-1; j >= 0 ; --j){
+		f << list[j] << endl;
 	}
 }
-void freenames(char *list [])
-{
+
+void freenames(char *list []){
 	for (int i = 0; list[i] != nullptr; ++i)
 	{
 		delete [] list[i];;
 	}
 }
-
-
-
-
